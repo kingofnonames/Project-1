@@ -1,5 +1,6 @@
 import re
 import string
+from tqdm import tqdm
 
 def split_into_sentences(paragraph):
     sentences = re.split(r'(?<!\w\.\w\.)(?<![A-Z][a-z]\.)(?<=\.|\?|\!)\s', paragraph)
@@ -34,3 +35,9 @@ def remove_diacritic(text):
     for accents, char in DIACRITIC_MAP.items():
         text = re.sub(f"[{accents}]", char, text)
     return text
+
+def remove_punctuation_corpus(corpus):
+  corpus_process = []
+  for sentence in tqdm(corpus):
+    corpus_process.append(remove_punctuation(sentence))
+  return corpus_process
